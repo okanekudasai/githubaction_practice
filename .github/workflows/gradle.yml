@@ -20,8 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Grant execute permission to gradlew
+      - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
       - uses: actions/checkout@v3
       - name: Set up JDK 17
