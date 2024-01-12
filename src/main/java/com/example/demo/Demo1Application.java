@@ -11,7 +11,7 @@ public class Demo1Application {
 
     @GetMapping("/test")
     String test() {
-        return "hello";
+        return "hello11111";
     }
 
     public static void main(String[] args) {
