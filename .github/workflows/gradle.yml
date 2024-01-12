@@ -55,11 +55,11 @@ jobs:
             script: |
               whoami
               mkdir -p ~/cicd
-              mkdir -p ~/cccccc
+              mkdir -p ~/cccccc111
               cd ~/cicd || exit
               rm -f *.jar
               # Download the artifact from the GitHub repository
-              curl -LJO https://github.com/githubaction_practice/releases/latest/download/cicdsample.zip
+              curl -LJO https://github.com/okanekudasai/githubaction_practice/releases/latest/download/cicdsample.zip
               unzip cicdsample.zip
               rm cicdsample.zip
               # Restart the application or do any necessary deployment steps
