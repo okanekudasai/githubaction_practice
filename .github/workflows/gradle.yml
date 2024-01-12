@@ -30,6 +30,11 @@ jobs:
           name: cicdsample
           path: build
 
+          
+  down:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: SSH into remote server and deploy
         uses: appleboy/ssh-action@master
         with:
@@ -61,4 +66,4 @@ jobs:
         with:
           name: hello
       - run: cat hello.txt
-            
+              
