@@ -44,13 +44,21 @@ jobs:
           uses: actions/download-artifact@v2
           with:
             name: cicdsample
-        - name: Setup SSH
-          uses: webfactory/ssh-agent@v0.5.4
+        - name: execute remote ssh & deploy backend server
+          uses: appleboy/ssh-action@master
           with:
-            ssh-private-key: ${{ secrets.REMOTE_SSH_KEY }}
-        - name: SCP transfer
-          run: scp *.jar ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }}:~/cicd
-        - name: Execute remote commands
-          run: |
-            ssh ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }} "sudo fuser -k 8080/tcp"
-            ssh ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }} "sudo nohup java -jar ~/cicd/*.jar &"
+            host: ${{ secrets.REMOTE_SSH_HOST }}
+            username: ${{ secrets.REMOTE_SSH_USERNAME }}
+            key: ${{ secrets.REMOTE_SSH_KEY }}
+            passphrase: ${{ secrets.REMOTE_SSH_PASSPHRASE }}
+            port: ${{ secrets.REMOTE_SSH_PORT }}
+            script: |
+              whoami
+              mkdir -p ~/cicd
+              cd ~/cicd || exit
+              rm -f *.jar
+              # Download the artifact from the GitHub repository
+              curl -LJO https://github.com/${{ github.repository }}/releases/latest/download/cicdsample.zip
+              unzip cicdsample.zip
+              rm cicdsample.zip
+              # Restart the application or do any necessary deployment steps
