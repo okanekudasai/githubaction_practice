@@ -43,6 +43,8 @@ jobs:
             mkdir -p ~/cccccc111222
             cd ~/cicd || exit
             rm -f *.jar
+            ls
+            pwd
             # Download the artifact from the GitHub repository
             curl -LJO https://github.com/okanekudasai/githubaction_practice/releases/latest/download/cicdsample.zip
             unzip cicdsample.zip
@@ -53,6 +55,8 @@ jobs:
         with:
           name: hello
           path: hello.txt
+      - run: echo "111111111" > hello.txt
+      - run: cat hello.txt
       - uses: actions/download-artifact@v3
         with:
           name: hello
