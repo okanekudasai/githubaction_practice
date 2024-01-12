@@ -35,3 +35,22 @@ jobs:
         with:
           name: cicdsample
           path: build/libs/*.jar
+
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: cicdsample
+        - name: Setup SSH
+          uses: webfactory/ssh-agent@v0.5.4
+          with:
+            ssh-private-key: ${{ secrets.REMOTE_SSH_KEY }}
+        - name: SCP transfer
+          run: scp *.jar ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }}:~/cicd
+        - name: Execute remote commands
+          run: |
+            ssh ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }} "sudo fuser -k 8080/tcp"
+            ssh ${{ secrets.REMOTE_SSH_USERNAME }}@${{ secrets.REMOTE_SSH_HOST }} "sudo nohup java -jar ~/cicd/*.jar &"
