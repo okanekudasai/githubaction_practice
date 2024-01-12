@@ -60,5 +60,4 @@ jobs:
               # Download the artifact from the GitHub repository
               curl -LJO https://github.com/${{ github.repository }}/releases/latest/download/cicdsample.zip
               unzip cicdsample.zip
-              rm cicdsample.zip
               # Restart the application or do any necessary deployment steps
