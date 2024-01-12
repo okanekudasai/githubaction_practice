@@ -45,3 +45,4 @@ jobs:
             unzip cicdsample.zip
             rm cicdsample.zip
             # Restart the application or do any necessary deployment steps
+            
