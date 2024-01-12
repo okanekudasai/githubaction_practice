@@ -22,6 +22,8 @@ jobs:
       - name: Build JAR
         run: ./gradlew build
 
+      - run: ls
+      - run: pwd
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -46,4 +48,13 @@ jobs:
             unzip cicdsample.zip
             rm cicdsample.zip
             # Restart the application or do any necessary deployment steps
+      - run: echo "Hello, GitHub Actions!" > hello.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: hello
+          path: hello.txt
+      - uses: actions/download-artifact@v3
+        with:
+          name: hello
+      - run: cat hello.txt
             
