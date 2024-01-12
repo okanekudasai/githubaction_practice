@@ -22,48 +22,12 @@ jobs:
       - name: Build JAR
         run: ./gradlew build
 
-      - run: ls
-      - run: pwd
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Deploy Prod use SCP
+        uses: appleboy/scp-action@master
         with:
-          name: cicdsample
-          path: build/libs/*.jar
-
-          
-  down:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: SSH into remote server and deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_SSH_HOST }}
-          username: ${{ secrets.REMOTE_SSH_USERNAME }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          passphrase: ${{ secrets.REMOTE_SSH_PASSPHRASE }}
-          port: ${{ secrets.REMOTE_SSH_PORT }}
-          script: |
-            mkdir -p ~/cicd
-            mkdir -p ~/cccccc111222
-            cd ~/cicd || exit
-            rm -f *.jar
-            ls
-            pwd
-            # Download the artifact from the GitHub repository
-            curl -LJO https://github.com/okanekudasai/githubaction_practice/releases/latest/download/cicdsample.zip
-            unzip cicdsample.zip
-            rm cicdsample.zip
-            # Restart the application or do any necessary deployment steps
-      - run: echo "Hello, GitHub Actions!" > hello.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: hello
-          path: hello.txt
-      - run: echo "111111111" > hello.txt
-      - run: cat hello.txt
-      - uses: actions/download-artifact@v3
-        with:
-          name: hello
-      - run: cat hello.txt
-              
+          username: ubuntu
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          source: "./build/libs/*.jar"
+          target: "/home/ubuntu/deploy"
+          strip_components: 2
