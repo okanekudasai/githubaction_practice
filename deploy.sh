@@ -1,6 +1,6 @@
 #!/bin/bash
  echo "> now ing app pid find!"
- CURRENT_PID=$(pgrep -f gist-competition)
+ CURRENT_PID=$(pgrep -f demo) #실행중인 파일명으로
  echo "$CURRENT_PID"
  if [ -z $CURRENT_PID ]; then
          echo "> no ing app."
