@@ -1,4 +1,16 @@
 server:
   port: 9999
 
-build.confirm: "gogogo1222211"
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://152.69.225.239:3306/attent
+    username: okane
+    password: opi7opi7opi7@
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+build:
+  confirm: "hhhhhh!!@@!!!"
