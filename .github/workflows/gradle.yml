@@ -19,6 +19,11 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Set YML
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.SECRET_APPLICATION }}" | base64 --decode > src/main/resources/application.yml
+          find src
 
       - name: Build JAR
         run: ./gradlew build
