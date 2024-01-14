@@ -19,6 +19,7 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+
       - name: Build JAR
         run: ./gradlew build
 
