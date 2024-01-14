@@ -12,7 +12,7 @@ import java.util.Arrays;
 @RestController
 public class Demo1Application {
 
-    @Value("build.confirm")
+    @Value("${build.confirm}")
     String key;
     @GetMapping("/test")
     String test() {
